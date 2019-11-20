@@ -27,3 +27,6 @@ yarn-error.log*
 # python
 *.pyc
 __pycache__/
+
+# auth0 configuratino
+auth0.config.js

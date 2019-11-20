@@ -6,7 +6,7 @@ from jose import jwt
 import os
 
 AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN', 'yourauth.auth0.com')
-API_AUDIENCE = os.environ.get('API_AUDIENCE','https://yoursite.herokuapp.com/')
+API_AUDIENCE = os.environ.get('API_AUDIENCE','https://erukar-2.herokuapp.com/')
 ALGORITHMS = ["RS256"]
 
 def silent_auth(f):

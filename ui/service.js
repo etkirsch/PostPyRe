@@ -1,4 +1,5 @@
-import config from '../auth0.config.json'
+import config from '../auth0.config.js'
 
 export default class Service {
+
 }
