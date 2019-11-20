@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 import os
 
@@ -14,3 +14,7 @@ def app_root():
     if IS_PROD_ENV:
         return 'Hello'
     return render_template('index.html')
+
+@app.route('/options')
+def options_route():
+    return jsonify([0, 1, 2, 3])
