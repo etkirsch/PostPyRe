@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
+from webserver.auth.auth0 import requires_auth, AuthError
 import os
 
 app = Flask(__name__, static_folder='../build/static', template_folder="../build")
@@ -18,3 +19,14 @@ def app_root():
 @app.route('/options')
 def options_route():
     return jsonify([0, 1, 2, 3])
+
+@app.route('/details')
+@requires_auth
+def details_route():
+    return 'Secret Information'
+
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response
