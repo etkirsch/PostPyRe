@@ -30,3 +30,4 @@ __pycache__/
 
 # auth0 configuratino
 auth0.config.js
+public/close-lock/index.html

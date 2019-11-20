@@ -23,6 +23,7 @@ def app_root():
     return f'Version {version} of Erukar 2.0 API'
 
 @app.route('/options')
+@requires_auth
 def options_route():
     return jsonify([0, 1, 2, 3])
 

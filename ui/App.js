@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import LoginButton from './auth/LoginButton'
+import ApiService from './ApiService'
+import AuthenticationService from './auth/AuthenticationService'
 import logo from './logo.svg';
 import './App.css';
+
+const apiService = new ApiService() 
+const authService = new AuthenticationService(apiService) 
 
 function App() {
   let [state, setState] = useState([])
 
   async function callService () {
-    let options = { method: 'GET' }
-    await fetch(`/options`, options)
-      .then(res => res.json())
+    authService
+      .callWithAuth({ endpoint: 'options' })
       .then(res => setState(res))
   }
 
@@ -19,6 +24,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+      <LoginButton Service={authService} />
       <button onClick={callService}>Click Here</button>
       {state.map(x => <div>{x}</div>)}
         <a
