@@ -1,69 +1,45 @@
-# erukar.io-2.0
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Erukar.io 2.0
+This is a full stack application implementing the following technologies
 
-## Available Scripts
+* React 16.8.1
+* Python 3.7.5
+* Flask
+* Auth0
+* PostgreSQL
 
-In the project directory, you can run:
+## Local Setup
+### Python Webserver
+Install Python and Heroku (on Mac use homebrew to install these).
 
-### `npm start`
+```
+brew install python
+brew install heroku
+```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Clone the Github repository and cd into it. Make sure that your python libs are added to your `PATH`. Install virtualenv and activate it to create a virtualized environment for Heroku. After your requirements are installed with `pip`, login to Heroku and run it locally.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+pip install virtualenv
+source venv/bin/activate
+pip install -r requirements.txt
+heroku login
+heroku local
+```
 
-### `npm test`
+NOTE:  You will have to pass in environment variables to `heroku local` with the following variables. You should get these from auth0 (see below).
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* `SHOULD_SERVE_STATIC=True` -- Enables the Static Server mode on the python webserver
+* `AUTH0_DOMAIN` -- Your Auth0 domain, e.g. `mydomain.auth0.com`
+* `API_AUDIENCE` -- Your API application identifier (or API Audience) in Auth0, e.g. `https://myapidomain.io`
 
-### `npm run build`
+To deactivate your virtual environment, simply execute `deactivate`.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### React UI
+Install NodeJs 12.13.1 (Node and NPM installation is outside of scope for this document). Create a script for you to run the dev server locally. Copy the `example.run.sh` shell script, change it to an executable, and change the `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_CLIENT_ID`, and `REACT_APP_API_AUDIENCE` values to those in your Auth0 single-page application
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+cp example.run.sh run.sh
+chmod +x run.sh
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+For Hot Reload functionality, additionally copy the `./public/close-lock` directory into `./public/close-lock-local` and add your Auth0 data to the script within.

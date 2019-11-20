@@ -1,0 +1,1 @@
+REACT_APP_AUTH0_DOMAIN=mydomain.auth0.com REACT_APP_CLIENT_ID=my-auth0-client-id REACT_APP_API_AUDIENCE=https://myapiaudience.io REACT_APP_API_URI=http://127.0.0.1:5000 REACT_APP_REDIRECT_URI=http://127.0.0.1:3000/close-lock-local npm start
