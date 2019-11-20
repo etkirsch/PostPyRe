@@ -39,6 +39,7 @@ export default class AuthenticationService {
   }
 
   registerAuth (profile) {
+    console.log(profile)
   }
 
   callWithAuth ({ endpoint, method='GET', options={} }) {
