@@ -81,7 +81,7 @@ function createRedirectUri () {
 
 function createApiUri () {
   return (isHerokuBuild)
-    ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/`
+    ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`
     : process.env.API_URI
 }
 
