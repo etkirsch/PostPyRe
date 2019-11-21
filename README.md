@@ -35,7 +35,7 @@ NOTE:  You will have to pass in environment variables to `heroku local` with the
 To deactivate your virtual environment, simply execute `deactivate`.
 
 ### React UI
-Install NodeJs 12.13.1 (Node and NPM installation is outside of scope for this document). Create a script for you to run the dev server locally. Copy the `example.run.sh` shell script, change it to an executable, and change the `REACT_APP_AUTH0_DOMAIN`, `REACT_APP_CLIENT_ID`, and `REACT_APP_API_AUDIENCE` values to those in your Auth0 single-page application
+Install NodeJs 12.13.1 (Node and NPM installation is outside of scope for this document). Create a script for you to run the dev server locally. Copy the `example.run.sh` shell script, change it to an executable, and change the `AUTH0_DOMAIN`, `CLIENT_ID`, and `API_AUDIENCE` values to those in your Auth0 single-page application
 
 ```
 cp example.run.sh run.sh
