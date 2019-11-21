@@ -14,6 +14,8 @@ if (!NODE_ENV) {
   );
 }
 
+
+
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 const dotenvFiles = [
   `${paths.dotenv}.${NODE_ENV}.local`,
@@ -60,15 +62,38 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 
+const isHerokuBuild = process.env.SHOULD_SERVE_STATIC
+const LiftableEnvironmentVariables = [
+  'API_AUDIENCE',
+  'AUTH0_DOMAIN',
+  'CLIENT_ID',
+  'API_URI'
+]
+
+function shouldLiftForPostPyre (key) {
+  return REACT_APP.test(key) || LiftableEnvironmentVariables.some(k => k === key)
+}
+
+function createRedirectUri () {
+  if (isHerokuBuild) {
+    return `https://${HEROKU_APP_NAME}/close-lock`
+  }
+
+  return process.env.REDIRECT_URI
+}
+
+function variablesToLift () {
+  return Object.keys(process.env)
+    .filter(key => shouldLiftForPostPyre(key))
+}
+
 function getClientEnvironment(publicUrl) {
-  const raw = Object.keys(process.env)
-    .filter(key => REACT_APP.test(key))
+  const raw = variablesToLift()
     .reduce(
       (env, key) => {
         env[key] = process.env[key];
         return env;
-      },
-      {
+      }, {
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.
         NODE_ENV: process.env.NODE_ENV || 'development',
@@ -77,8 +102,10 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+        REDIRECT_URI: createRedirectUri()
       }
     );
+
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
     'process.env': Object.keys(raw).reduce((env, key) => {
