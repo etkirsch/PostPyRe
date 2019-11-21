@@ -66,8 +66,7 @@ const isHerokuBuild = process.env.SHOULD_SERVE_STATIC
 const LiftableEnvironmentVariables = [
   'API_AUDIENCE',
   'AUTH0_DOMAIN',
-  'CLIENT_ID',
-  'API_URI'
+  'CLIENT_ID'
 ]
 
 function shouldLiftForPostPyre (key) {
@@ -75,11 +74,15 @@ function shouldLiftForPostPyre (key) {
 }
 
 function createRedirectUri () {
-  if (isHerokuBuild) {
-    return `https://${process.env.HEROKU_APP_NAME}/close-lock`
-  }
+  return (isHerokuBuild)
+    ? `https://${process.env.HEROKU_APP_NAME}/close-lock`
+    : process.env.REDIRECT_URI
+}
 
-  return process.env.REDIRECT_URI
+function createApiUri () {
+  return (isHerokuBuild)
+    ? `https://${process.env.HEROKU_APP_NAME}/`
+    : process.env.API_URI
 }
 
 function variablesToLift () {
@@ -102,7 +105,8 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
-        REDIRECT_URI: createRedirectUri()
+        REDIRECT_URI: createRedirectUri(),
+        API_URI: createApiUri()
       }
     );
 
