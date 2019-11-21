@@ -75,13 +75,13 @@ function shouldLiftForPostPyre (key) {
 
 function createRedirectUri () {
   return (isHerokuBuild)
-    ? `https://${process.env.HEROKU_APP_NAME}/close-lock`
+    ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/close-lock`
     : process.env.REDIRECT_URI
 }
 
 function createApiUri () {
   return (isHerokuBuild)
-    ? `https://${process.env.HEROKU_APP_NAME}/`
+    ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com/`
     : process.env.API_URI
 }
 
