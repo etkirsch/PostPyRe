@@ -76,7 +76,7 @@ function shouldLiftForPostPyre (key) {
 
 function createRedirectUri () {
   if (isHerokuBuild) {
-    return `https://${HEROKU_APP_NAME}/close-lock`
+    return `https://${process.env.HEROKU_APP_NAME}/close-lock`
   }
 
   return process.env.REDIRECT_URI
