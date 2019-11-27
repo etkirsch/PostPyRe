@@ -1,8 +1,11 @@
 import React from 'react'
 import { Lock } from './Auth0Lock'
 
-export default function LoginButton ({ Service }) {
-  Lock.on('authenticated', (result) => Service.onAuthenticated(Lock, result))
+export default function LoginButton ({ service, finalizeHook }) {
+  Lock.on(
+    'authenticated',
+    (result) => service.onAuthenticated(Lock, result, finalizeHook)
+  )
 
   return (
     <div>

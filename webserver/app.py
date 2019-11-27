@@ -25,7 +25,14 @@ def app_root():
 @app.route('/options')
 @requires_auth
 def options_route():
-    return jsonify([0, 1, 2, 3])
+    result = [{
+        'name': 'First Name',
+        'id': 0
+    }, {
+        'name': 'Second Name',
+        'id': 2
+    }]
+    return jsonify(result)
 
 @app.route('/details')
 @requires_auth
@@ -37,4 +44,3 @@ def handle_auth_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
-

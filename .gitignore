@@ -29,4 +29,5 @@ yarn-error.log*
 __pycache__/
 
 run.sh
+serve.sh
 /public/close-lock-local/

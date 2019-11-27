@@ -22,7 +22,7 @@ export default class AuthenticationService {
     this.authenticationState = state
   }
 
-  onAuthenticated (Lock, result) {
+  onAuthenticated (Lock, result, finalizeHook) {
     Lock.hide()
     if (!result) {
       throw new Error(FailedToAuthenticate)
@@ -30,6 +30,7 @@ export default class AuthenticationService {
 
     Lock.getUserInfo(result.accessToken, (error, profile) => {
       this.login(result, profile)
+      finalizeHook(result)
     })
   }
 
@@ -41,7 +42,11 @@ export default class AuthenticationService {
   registerAuth (profile) {
   }
 
-  callWithAuth ({ endpoint, method='GET', options={} }) {
+  resetAuth () {
+    this.authenticationState = null
+  }
+
+  call ({ endpoint, method='GET', options={} }) {
     if (!this.hasValidState()) {
       throw new Error(CalledWithoutValidState)
     }
