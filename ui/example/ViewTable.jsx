@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from 'react'
 
+const endpoint = 'test-model'
+
 export default function ViewTable ({ service, headers, initialData=[] }) {
   let [tableData, setTableData] = useState([])
 
   useEffect(() => {
     service
-      .call({ endpoint: 'options' })
-      .then(res => buildSearchTree(res))
-  })
+      .call({ endpoint })
+      .then(res => setTableData(res))
+  }, [service])
 
   function createNew () {
+    let body = { name: 'Hero Test' }
+
     service
-      .call({ endpoint: 'options' })
-      .then(res => buildSearchTree(res))
+      .call({ endpoint, method: 'POST', body })
+      .then(res => appendToData(res))
   }
 
   function callDelete (id) {
-    console.log('call delete')
+    service
+      .call({ endpoint: `${endpoint}/${id}`, method: 'DELETE' })
+      .then(res => removeElement(id))
   }
 
-  function buildSearchTree (input) {
-    setTableData(input)
+  function appendToData (result) {
+    setTableData((currentData) => [...currentData, result])
+  }
+
+  function removeElement (id) {
+    setTableData((currentData) => currentData.filter(x => x.id !== id))
   }
 
   function row (data) {

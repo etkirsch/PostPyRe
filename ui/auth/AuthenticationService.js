@@ -46,13 +46,14 @@ export default class AuthenticationService {
     this.authenticationState = null
   }
 
-  call ({ endpoint, method='GET', options={} }) {
+  call ({ endpoint, method='GET', body=undefined, options={} }) {
     if (!this.hasValidState()) {
       throw new Error(CalledWithoutValidState)
     }
     return this.apiService.call({
       endpoint,
       method,
+      body,
       options: {
         ...options,
         headers: { Authorization: `Bearer ${this.authenticationState.accessToken}` }

@@ -6,8 +6,12 @@ export default class ApiService {
     this.apiUri = config.apiUri
   }
 
-  call ({ endpoint, method='GET', options={} }) {
-    let apiOptions = { ...options, method }
+  call ({ endpoint, method='GET', body=undefined, options={} }) {
+    let apiOptions = {
+      ...options,
+      method,
+      body: JSON.stringify(body)
+    }
 
     return fetch(`${this.apiUri}/${endpoint}`, apiOptions)
       .then(res => res.json())
