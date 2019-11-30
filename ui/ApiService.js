@@ -14,6 +14,11 @@ export default class ApiService {
     }
 
     return fetch(`${this.apiUri}/${endpoint}`, apiOptions)
-      .then(res => res.json())
+      .then((res, err) => {
+        if (res && res.ok) {
+          return res.json()
+        }
+        return err
+      })
   }
 }
