@@ -4,7 +4,6 @@ import LogoutButton from './auth/LogoutButton'
 import ViewTable from './example/ViewTable'
 import ApiService from './ApiService'
 import AuthenticationService from './auth/AuthenticationService'
-import logo from './logo.svg';
 import './App.css';
 
 const apiService = new ApiService() 
@@ -28,13 +27,18 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {authButton()}
-        {isAuthenticated &&
-          <ViewTable service={authService} headers={headers} />
-        }
-      </header>
+      <div className='main'>
+        <header className="App-header">
+          <h1>PostPyRe</h1>
+          <h4>A minimal Python/Flask, PostgreSQL, and React Hooks Stack</h4>
+        </header>
+        <div>
+          {authButton()}
+          {isAuthenticated &&
+            <ViewTable service={authService} headers={headers} />
+          }
+        </div>
+      </div>
     </div>
   );
 }

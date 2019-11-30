@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+.main {
+  background-color: #181d1d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +13,38 @@
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+h1 {
+  color: #13d4de;
+  margin-bottom: 0;
+  font-size: 72pt;
+}
+
+h4 {
+  margin-top: 0;
+  font-size: 18pt;
+  font-weight: normal;
+  font-style: italic;
+}
+
+header {
+  margin-bottom: 2em;
+}
+
+button {
+  background-color: #23888e;
+  border-radius: 0.25em;
+  min-height: 2.5em;
+  color: white;
+  vertical-align: middle;
+  transition: 100ms all;
+}
+
+button:hover {
+  background: #2caab2;
+  cursor: pointer;
+}
+
+button:active {
+  background: #45c9d1;
+  color: black;
 }

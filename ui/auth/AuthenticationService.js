@@ -4,14 +4,16 @@ const CalledWithoutValidState = 'Attempted to call the API in an authenticated m
 const LocalStorageKey = 'erukar-2.0-local-auth-state'
 
 export default class AuthenticationService {
-  constructor (apiService) {
+  constructor (apiService, onRegister) {
     this.clientId = config.clientId
     this.auth0Domain = config.auth0Domain
     this.redirectUri = config.redirectUri
     this.logoutUri = config.logoutUri
     this.apiAudience = config.apiAudience
 
+    this.onRegister = onRegister
     this.authenticationState = null
+    this.profile = null
     this.apiService = apiService
   }
 
@@ -49,6 +51,11 @@ export default class AuthenticationService {
 
   registerAuth (profile) {
     localStorage.setItem(LocalStorageKey, JSON.stringify(this.authenticationState))
+    this.profile = profile
+
+    if (this.onRegister) {
+      this.onRegister(profile)
+    }
   }
 
   resetAuth () {

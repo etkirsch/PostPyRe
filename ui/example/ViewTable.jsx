@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import TableRow from './TableRow'
+import './example-table.css'
 
 const endpoint = 'test-model'
 
@@ -40,8 +41,11 @@ export default function ViewTable ({ service, headers, initialData=[] }) {
   }
 
   return (
-    <div>
-      <button onClick={createNew}>Create New</button>
+    <div className='table-pane'>
+      <div className='header'>
+        <div className='text'>Viewing Test Models</div>
+        <button className='create-new' onClick={createNew}>Create New</button>
+      </div>
       <table>
         <thead>
           <tr>
