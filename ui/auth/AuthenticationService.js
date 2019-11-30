@@ -1,4 +1,5 @@
 import { config } from './auth0.config.js'
+import auth0 from 'auth0-js'
 const FailedToAuthenticate = 'Attempted to authenticate, but the Auth0 Lock returned an invalid result'
 const CalledWithoutValidState = 'Attempted to call the API in an authenticated manner without a valid authentication state'
 const LsAuthStateKey = 'erukar-2.0-local-auth-state'
@@ -12,6 +13,14 @@ export default class AuthenticationService {
     this.logoutUri = config.logoutUri
     this.apiAudience = config.apiAudience
 
+    this.webAuth = new auth0.WebAuth({
+      domain: this.auth0Domain,
+      clientID: this.clientId,
+      redirectUri: this.redirectUri,
+      responseType: 'token id_token',
+      scope: 'openid profile'
+    })
+
     this.onRegister = onRegister
     this.authenticationState = null
     this.profile = null
@@ -23,7 +32,28 @@ export default class AuthenticationService {
     if (!potentialState) {
       return
     }
-    this.authenticationState = JSON.parse(potentialState)
+
+    try {
+      this.authenticationState = JSON.parse(potentialState)
+    } catch (error) {
+      this.resetAuth()
+      return
+    }
+
+    let options = {
+      state: this.authenticationState
+    }
+    try {
+      this.webAuth.checkSession({}, (err, res) => {
+        if (err) {
+          this.resetAuth()
+          throw new Error()
+        }
+      })
+    } catch (error) {
+      this.resetAuth()
+      return
+    }
 
     let potentialProfile = localStorage.getItem(LsProfileKey)
     if (potentialProfile) {
