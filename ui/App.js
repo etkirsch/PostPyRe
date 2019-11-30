@@ -9,11 +9,12 @@ import './App.css';
 
 const apiService = new ApiService() 
 const authService = new AuthenticationService(apiService) 
+authService.restoreExistingState()
 
 const headers = ['ID', 'Name', '']
 
 function App() {
-  let [isAuthenticated, setAuthenticated] = useState(false)
+  let [isAuthenticated, setAuthenticated] = useState(authService.hasValidState())
 
   function onAuthenticated (authState) {
     setAuthenticated(true)

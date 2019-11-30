@@ -1,6 +1,7 @@
 import { config } from './auth0.config.js'
 const FailedToAuthenticate = 'Attempted to authenticate, but the Auth0 Lock returned an invalid result'
 const CalledWithoutValidState = 'Attempted to call the API in an authenticated manner without a valid authentication state'
+const LocalStorageKey = 'erukar-2.0-local-auth-state'
 
 export default class AuthenticationService {
   constructor (apiService) {
@@ -12,6 +13,13 @@ export default class AuthenticationService {
 
     this.authenticationState = null
     this.apiService = apiService
+  }
+
+  restoreExistingState () {
+    let potentialState = localStorage.getItem(LocalStorageKey)
+    if (potentialState) {
+      this.authenticationState = JSON.parse(potentialState)
+    }
   }
 
   hasValidState () {
@@ -40,6 +48,7 @@ export default class AuthenticationService {
   }
 
   registerAuth (profile) {
+    localStorage.setItem(LocalStorageKey, JSON.stringify(this.authenticationState))
   }
 
   resetAuth () {
