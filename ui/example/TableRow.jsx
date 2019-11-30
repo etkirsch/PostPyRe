@@ -1,10 +1,5 @@
 import React, { useState } from 'react'
-
-function useInput (initial) {
-  const [data, setData] = useState(initial)
-  const input = <input value={data} onChange={e => setData(e.target.value)} />
-  return [data, input]
-}
+import {  useInput } from '../hooks/useInput'
 
 export default function TableRow ({ service, endpoint, initialData, onDelete }) {
   let [data, setData] = useState(initialData)
