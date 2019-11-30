@@ -1,7 +1,36 @@
 import React, { useState } from 'react'
-import LoginButton from './auth/LoginButton'
-import LogoutButton from './auth/LogoutButton'
+import LoginButton from './LoginButton'
+import LogoutButton from './LogoutButton'
+import './auth-row.css'
 
-export default function Auth0Row ({ authService, setAuthenticated }) {
-  let [isAuthenticated, setAuthenticated] = useState(authService.hasValidState())
+export default function Auth0Row ({ service, onAuthStateChange }) {
+  let [isAuthenticated, setAuthenticated] = useState(service.hasValidState())
+
+  function handleAuthChange (authState, authProfile) {
+    onAuthStateChange(authState)
+    setAuthenticated(!!authState)
+  }
+
+  function loggedInText () {
+    if (service.profile && service.profile.name) {
+      return `You are logged in as  ${service.profile.name}.`
+    }
+    return 'You are logged in.'
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className='auth-row'>
+        <div>You are not logged in.</div>
+        <LoginButton service={service} handleAuthChange={handleAuthChange} />
+      </div>
+    )
+  }
+
+  return (
+    <div className='auth-row'>
+      <div>{loggedInText()}</div>
+      <LogoutButton service={service} handleAuthChange={handleAuthChange} />
+    </div>
+  )
 }

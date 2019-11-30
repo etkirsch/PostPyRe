@@ -29,9 +29,15 @@ export default function TableRow ({ service, endpoint, initialData, onDelete }) 
   }
 
   function showControls () {
-    return (showingInput)
-      ? <button onClick={callUpdate}>Commit</button>
-      : <button onClick={callDelete}>Delete</button>
+    if (!showingInput) {
+      return <button onClick={callDelete}>Delete</button>
+    }
+    return (
+      <div>
+        <button onClick={callUpdate}>Commit</button>
+        <button onClick={() => shouldShowInput(false)}>Cancel</button>
+      </div>
+    )
   }
 
   return (

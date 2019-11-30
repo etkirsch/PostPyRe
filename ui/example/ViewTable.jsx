@@ -29,6 +29,14 @@ export default function ViewTable ({ service, headers, initialData=[] }) {
     setTableData((currentData) => currentData.filter(x => x.id !== id))
   }
 
+  function header (col) {
+    return (
+      <th style={col.style}>
+        {col.text}
+      </th>
+    )
+  }
+
   function row (data) {
     return (
       <TableRow
@@ -48,9 +56,7 @@ export default function ViewTable ({ service, headers, initialData=[] }) {
       </div>
       <table>
         <thead>
-          <tr>
-            {headers.map(col => <th>{col}</th>)}
-          </tr>
+          <tr>{headers.map(col => header(col))}</tr>
         </thead>
         <tbody>
           {tableData.map(x => row(x))}

@@ -1,0 +1,14 @@
+.auth-row {
+  top: 0;
+  right: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  font-size: 14pt;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+}
+
+.auth-row button {
+  margin-left: 2em;
+}

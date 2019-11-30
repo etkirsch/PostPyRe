@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function LogoutButton ({ service, finalizeHook }) {
+export default function LogoutButton ({ service, handleAuthChange }) {
   function clickLogout () {
     service.resetAuth()
-    if (finalizeHook) {
-      finalizeHook()
+    if (handleAuthChange) {
+      handleAuthChange()
     }
   }
 

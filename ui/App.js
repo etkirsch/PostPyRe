@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import LoginButton from './auth/LoginButton'
-import LogoutButton from './auth/LogoutButton'
 import ViewTable from './example/ViewTable'
 import ApiService from './ApiService'
+import Auth0Row from './auth/AuthenticationRow'
 import AuthenticationService from './auth/AuthenticationService'
 import './App.css';
 
@@ -10,30 +9,28 @@ const apiService = new ApiService()
 const authService = new AuthenticationService(apiService) 
 authService.restoreExistingState()
 
-const headers = ['ID', 'Name', '']
+const headers = [
+  { text: 'ID', style: { width: '15%' }},
+  { text: 'Name', style: { width: '65%' }},
+  { text: '', style: { width: '20%' }}
+]
 
 function App() {
   let [isAuthenticated, setAuthenticated] = useState(authService.hasValidState())
 
-  function onAuthenticated (authState) {
-    setAuthenticated(true)
-  }
-
-  function authButton () {
-    return (isAuthenticated)
-      ? <LogoutButton service={authService} finalizeHook={() => setAuthenticated(false)} />
-      : <LoginButton service={authService} finalizeHook={onAuthenticated} />
+  function onAuthStateChange (authState) {
+    setAuthenticated(!!authState)
   }
 
   return (
     <div className="App">
       <div className='main'>
+        <Auth0Row onAuthStateChange={onAuthStateChange} service={authService} />
         <header className="App-header">
           <h1>PostPyRe</h1>
           <h4>A minimal Python/Flask, PostgreSQL, and React Hooks Stack</h4>
         </header>
         <div>
-          {authButton()}
           {isAuthenticated &&
             <ViewTable service={authService} headers={headers} />
           }

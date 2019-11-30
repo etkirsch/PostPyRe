@@ -1,7 +1,8 @@
 import { config } from './auth0.config.js'
 const FailedToAuthenticate = 'Attempted to authenticate, but the Auth0 Lock returned an invalid result'
 const CalledWithoutValidState = 'Attempted to call the API in an authenticated manner without a valid authentication state'
-const LocalStorageKey = 'erukar-2.0-local-auth-state'
+const LsAuthStateKey = 'erukar-2.0-local-auth-state'
+const LsProfileKey = 'erukar-2.0-local-profile'
 
 export default class AuthenticationService {
   constructor (apiService, onRegister) {
@@ -18,9 +19,15 @@ export default class AuthenticationService {
   }
 
   restoreExistingState () {
-    let potentialState = localStorage.getItem(LocalStorageKey)
-    if (potentialState) {
-      this.authenticationState = JSON.parse(potentialState)
+    let potentialState = localStorage.getItem(LsAuthStateKey)
+    if (!potentialState) {
+      return
+    }
+    this.authenticationState = JSON.parse(potentialState)
+
+    let potentialProfile = localStorage.getItem(LsProfileKey)
+    if (potentialProfile) {
+      this.profile = JSON.parse(potentialProfile)
     }
   }
 
@@ -32,7 +39,7 @@ export default class AuthenticationService {
     this.authenticationState = state
   }
 
-  onAuthenticated (Lock, result, finalizeHook) {
+  onAuthenticated (Lock, result, handleAuthChange) {
     Lock.hide()
     if (!result) {
       throw new Error(FailedToAuthenticate)
@@ -40,7 +47,7 @@ export default class AuthenticationService {
 
     Lock.getUserInfo(result.accessToken, (error, profile) => {
       this.login(result, profile)
-      finalizeHook(result)
+      handleAuthChange(result, profile)
     })
   }
 
@@ -50,7 +57,8 @@ export default class AuthenticationService {
   }
 
   registerAuth (profile) {
-    localStorage.setItem(LocalStorageKey, JSON.stringify(this.authenticationState))
+    localStorage.setItem(LsAuthStateKey, JSON.stringify(this.authenticationState))
+    localStorage.setItem(LsProfileKey, JSON.stringify(profile))
     this.profile = profile
 
     if (this.onRegister) {
@@ -60,6 +68,8 @@ export default class AuthenticationService {
 
   resetAuth () {
     this.authenticationState = null
+    localStorage.removeItem(LsAuthStateKey)
+    localStorage.removeItem(LsProfileKey)
   }
 
   call ({ endpoint, method='GET', body=undefined, options={} }) {

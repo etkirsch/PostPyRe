@@ -1,6 +1,6 @@
 table {
   font-size: 12pt;
-  min-width: 40em;
+  width: 40em;
   border: 1px solid #c3edf0;
   border-spacing: 0;
   border-collapse: collapse;
@@ -21,11 +21,11 @@ td {
 
 .create-new {
   float: right;
-  font-size: 14pt;
 }
 
 .header .text {
   float: left;
+  font-size: 16pt;
 }
 
 td input {
