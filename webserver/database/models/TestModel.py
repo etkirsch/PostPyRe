@@ -4,6 +4,7 @@ from webserver.database.DeclarativeBase import DeclarativeBase
 from webserver.database.PostPyreBase import PostPyreBase
 
 class TestModel(DeclarativeBase, PostPyreBase):
+    __endpoint__ = '/test-model'
     __tablename__ = 'test'
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -20,10 +21,13 @@ class TestModel(DeclarativeBase, PostPyreBase):
             yield model.payloadize()
 
     def create(request, engine):
-        body = request.get_json(force=True)
         new_model = TestModel()
+        return new_model.update(request, engine)
+
+    def update(self, request, engine):
+        body = request.get_json(force=True)
         for parameter in body.keys():
-            if hasattr(new_model, parameter):
-                setattr(new_model, parameter, body[parameter])
-        engine.commit_creation(new_model)
-        return new_model.payloadize()
+            if hasattr(self, parameter):
+                setattr(self, parameter, body[parameter])
+        engine.commit_creation(self)
+        return self.payloadize()

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import TableRow from './TableRow'
 
 const endpoint = 'test-model'
 
@@ -19,12 +20,6 @@ export default function ViewTable ({ service, headers, initialData=[] }) {
       .then(res => appendToData(res))
   }
 
-  function callDelete (id) {
-    service
-      .call({ endpoint: `${endpoint}/${id}`, method: 'DELETE' })
-      .then(res => removeElement(id))
-  }
-
   function appendToData (result) {
     setTableData((currentData) => [...currentData, result])
   }
@@ -35,39 +30,28 @@ export default function ViewTable ({ service, headers, initialData=[] }) {
 
   function row (data) {
     return (
-      <tr>
-        <td>{data.id}</td>
-        <td>{data.name}</td>
-        <td><button onClick={() => callDelete(data.id)}>X</button></td>
-      </tr>
-    )
-  }
-
-  function table (data) {
-    return (
-      <table>
-        {tableHeader(data)}
-        <tbody>
-          {data.map(x => row(x))}
-        </tbody>
-      </table>
-    )
-  }
-
-  function tableHeader (data) {
-    return (
-      <thead>
-        <tr>
-          {headers.map(col => <th>{col}</th>)}
-        </tr>
-      </thead>
+      <TableRow
+        key={data.id}
+        service={service}
+        endpoint={endpoint}
+        initialData={data}
+        onDelete={(_, id) => removeElement(id)} />
     )
   }
 
   return (
     <div>
       <button onClick={createNew}>Create New</button>
-      {table(tableData)}
+      <table>
+        <thead>
+          <tr>
+            {headers.map(col => <th>{col}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map(x => row(x))}
+        </tbody>
+      </table>
     </div>
   )
 }
