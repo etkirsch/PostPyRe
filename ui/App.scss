@@ -12,12 +12,20 @@
   font-size: calc(10px + 2vmin);
   color: white;
   background-image: linear-gradient(#181d1d, #0e1111);
+
+  @media (max-width: 600px) {
+    padding: 2em;
+  }
 }
 
 h1 {
   color: #13d4de;
   margin-bottom: 0;
   font-size: 72pt;
+
+  @media (max-width: 600px) {
+    font-size: 48pt;
+  }
 }
 
 h4 {
@@ -25,10 +33,10 @@ h4 {
   font-size: 18pt;
   font-weight: normal;
   font-style: italic;
-}
 
-header {
-  margin-bottom: 2em;
+  @media (max-width: 600px) {
+    font-size: 14pt;
+  }
 }
 
 button {
@@ -38,14 +46,14 @@ button {
   color: white;
   vertical-align: middle;
   transition: 100ms all;
-}
 
-button:hover {
-  background: #2caab2;
-  cursor: pointer;
-}
+  &:hover {
+    background: #2caab2;
+    cursor: pointer;
+  }
 
-button:active {
-  background: #45c9d1;
-  color: black;
+  &:active {
+    background: #45c9d1;
+    color: black;
+  }
 }

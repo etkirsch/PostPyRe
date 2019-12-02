@@ -1,0 +1,26 @@
+.auth-row {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  font-size: 14pt;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+
+  @media (max-width: 600px) {
+    bottom: 0;
+    margin-bottom: 0.5em;
+
+    button {
+      min-width: 8em;
+    }
+  }
+
+  @media (min-width: 601px) {
+    top: 0;
+    right: 0;
+  }
+
+  button {
+    margin-left: 2em;
+  }
+}

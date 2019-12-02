@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import LoginButton from './LoginButton'
 import LogoutButton from './LogoutButton'
-import './auth-row.css'
+import './auth-row.scss'
 
 export default function Auth0Row ({ service, onAuthStateChange }) {
   let [isAuthenticated, setAuthenticated] = useState(service.hasValidState())

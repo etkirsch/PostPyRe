@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import TableRow from './TableRow'
-import './example-table.css'
+import './example-table.scss'
 
 const endpoint = 'test-model'
 

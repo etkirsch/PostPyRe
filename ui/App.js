@@ -3,7 +3,7 @@ import ViewTable from './example/ViewTable'
 import ApiService from './ApiService'
 import Auth0Row from './auth/AuthenticationRow'
 import AuthenticationService from './auth/AuthenticationService'
-import './App.css';
+import './App.scss';
 
 const apiService = new ApiService() 
 const authService = new AuthenticationService(apiService) 
