@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ViewTable from './example/ViewTable'
+import ExampleTable from './example'
 import ApiService from './ApiService'
 import Auth0Row from './auth/AuthenticationRow'
 import AuthenticationService from './auth/AuthenticationService'
@@ -36,7 +36,7 @@ function App() {
         </header>
         <div>
           {isAuthenticated
-            ? <ViewTable service={authService} headers={headers} />
+            ? <ExampleTable service={authService} headers={headers} />
             : <p>{renderBlurb()}</p>
           }
         </div>
