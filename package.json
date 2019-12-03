@@ -83,19 +83,19 @@
   },
   "jest": {
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>/ui"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
+      "ui/**/*.{js,jsx,ts,tsx}",
+      "!ui/**/*.d.ts"
     ],
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
     "setupFilesAfterEnv": [],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+      "<rootDir>/ui/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/ui/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "transform": {
