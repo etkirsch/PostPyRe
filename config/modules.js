@@ -93,7 +93,7 @@ function getJestAliases(options = {}) {
 
   if (path.relative(paths.appPath, baseUrlResolved) === '') {
     return {
-      'src/(.*)$': '<rootDir>/src/$1',
+      'ui/(.*)$': '<rootDir>/ui/$1',
     };
   }
 }

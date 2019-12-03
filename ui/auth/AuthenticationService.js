@@ -40,9 +40,6 @@ export default class AuthenticationService {
       return
     }
 
-    let options = {
-      state: this.authenticationState
-    }
     try {
       this.webAuth.checkSession({}, (err, res) => {
         if (err) {
