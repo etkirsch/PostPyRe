@@ -6,8 +6,9 @@ from jose import jwt
 import os
 
 AUTH0_DOMAIN = os.environ.get('AUTH0_DOMAIN', 'yourauth.auth0.com')
-API_AUDIENCE = os.environ.get('API_AUDIENCE','your-api-audience')
+API_AUDIENCE = os.environ.get('API_AUDIENCE', 'your-api-audience')
 ALGORITHMS = ["RS256"]
+
 
 def silent_auth(f):
     '''Does not fail if token is invalid'''
@@ -19,7 +20,7 @@ def silent_auth(f):
             setattr(request, 'is_public', True)
             return f(*args, **kwargs)
 
-        jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
+        jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
         jwks = json.loads(jsonurl.read())
         unverified_header = jwt.get_unverified_header(token)
         rsa_key = {}
@@ -39,9 +40,9 @@ def silent_auth(f):
                     rsa_key,
                     algorithms=ALGORITHMS,
                     audience=API_AUDIENCE,
-                    issuer="https://"+AUTH0_DOMAIN+"/"
+                    issuer=f'https://{AUTH0_DOMAIN}/'
                 )
-            except:
+            except Exception:
                 setattr(request, 'auth0sub', 'invalid sub')
                 setattr(request, 'is_public', True)
                 return f(*args, **kwargs)
@@ -57,6 +58,7 @@ def silent_auth(f):
 
     return decorated
 
+
 def get_token_auth_header_silent():
     """Obtains the access token from the Authorization Header
     """
@@ -68,13 +70,14 @@ def get_token_auth_header_silent():
         return None
     return parts[1]
 
+
 def requires_auth(f):
     """Determines if the access token is valid
     """
     @wraps(f)
     def decorated(*args, **kwargs):
         token = get_token_auth_header()
-        jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
+        jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
         jwks = json.loads(jsonurl.read())
         unverified_header = jwt.get_unverified_header(token)
         rsa_key = {}
@@ -94,7 +97,7 @@ def requires_auth(f):
                     rsa_key,
                     algorithms=ALGORITHMS,
                     audience=API_AUDIENCE,
-                    issuer="https://"+AUTH0_DOMAIN+"/"
+                    issuer=f'https://{AUTH0_DOMAIN}/'
                 )
             except jwt.ExpiredSignatureError:
                 raise AuthError({"code": "token_expired",
@@ -116,6 +119,7 @@ def requires_auth(f):
         raise AuthError({"code": "invalid_header",
                         "description": "Unable to find appropriate key"}, 400)
     return decorated
+
 
 # Format error response and append status code
 def get_token_auth_header():
@@ -150,4 +154,3 @@ class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
-
