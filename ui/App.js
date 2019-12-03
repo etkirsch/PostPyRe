@@ -22,6 +22,10 @@ function App() {
     setAuthenticated(!!authState)
   }
 
+  function renderBlurb () {
+    return 'Log in via Auth0 to see a simple example or start modifying the source yourself!'
+  }
+
   return (
     <div className="App">
       <div className='main'>
@@ -31,8 +35,9 @@ function App() {
           <h4>A minimal Python/Flask, PostgreSQL, and React Hooks Stack</h4>
         </header>
         <div>
-          {isAuthenticated &&
-            <ViewTable service={authService} headers={headers} />
+          {isAuthenticated
+            ? <ViewTable service={authService} headers={headers} />
+            : <p>{renderBlurb()}</p>
           }
         </div>
       </div>

@@ -16,28 +16,34 @@
   @media (max-width: 600px) {
     padding: 2em;
   }
-}
 
-h1 {
-  color: #13d4de;
-  margin-bottom: 0;
-  font-size: 72pt;
+  h1 {
+    color: #13d4de;
+    margin-bottom: 0;
+    font-size: 72pt;
 
-  @media (max-width: 600px) {
-    font-size: 48pt;
+    @media (max-width: 600px) {
+      font-size: 48pt;
+      margin-top: 0;
+    }
+  }
+
+  h4 {
+    margin-top: 0;
+    font-size: 18pt;
+    font-weight: normal;
+    font-style: italic;
+
+    @media (max-width: 600px) {
+      font-size: 14pt;
+    }
+  }
+
+  p {
+    font-size: 12pt;
   }
 }
 
-h4 {
-  margin-top: 0;
-  font-size: 18pt;
-  font-weight: normal;
-  font-style: italic;
-
-  @media (max-width: 600px) {
-    font-size: 14pt;
-  }
-}
 
 button {
   background-color: #23888e;
