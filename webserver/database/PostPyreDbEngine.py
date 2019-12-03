@@ -1,8 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from webserver.database.models.TestModel import TestModel
 from webserver.database.DeclarativeBase import DeclarativeBase
-import sqlalchemy.dialects.postgresql
 import os
 
 

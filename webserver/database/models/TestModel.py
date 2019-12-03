@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
-from sqlalchemy.dialects import postgresql
 from webserver.database.DeclarativeBase import DeclarativeBase
 from webserver.database.PostPyreBase import PostPyreBase
+
 
 class TestModel(DeclarativeBase, PostPyreBase):
     __endpoint__ = '/test-model'
