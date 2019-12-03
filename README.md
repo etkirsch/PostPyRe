@@ -43,3 +43,8 @@ chmod +x run.sh
 ```
 
 For Hot Reload functionality, additionally copy the `./public/close-lock` directory into `./public/close-lock-local` and add your Auth0 data to the script within.
+
+### Postgres
+The following instructions are for macOS Mojave. Windows and Linux instructions will be added in the future.
+
+Install [Postgres App v2.3.2](https://postgresapp.com/downloads.html). Run through its install and get a basic server set up and running locally. Installation/Setup of PostgreSQL is outside of the scope of this document. Update your `serve.sh` file to point to the correct database via `DATABASE_URL=postgres://localhost/<your-db-name>`.
