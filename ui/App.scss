@@ -1,0 +1,65 @@
+.App {
+  text-align: center;
+}
+
+.main {
+  background-color: #181d1d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  background-image: linear-gradient(#181d1d, #0e1111);
+
+  @media (max-width: 600px) {
+    padding: 2em;
+  }
+
+  h1 {
+    color: #13d4de;
+    margin-bottom: 0;
+    font-size: 72pt;
+
+    @media (max-width: 600px) {
+      font-size: 48pt;
+      margin-top: 0;
+    }
+  }
+
+  h4 {
+    margin-top: 0;
+    font-size: 18pt;
+    font-weight: normal;
+    font-style: italic;
+
+    @media (max-width: 600px) {
+      font-size: 14pt;
+    }
+  }
+
+  p {
+    font-size: 12pt;
+  }
+}
+
+
+button {
+  background-color: #23888e;
+  border-radius: 0.25em;
+  min-height: 2.5em;
+  color: white;
+  vertical-align: middle;
+  transition: 100ms all;
+
+  &:hover {
+    background: #2caab2;
+    cursor: pointer;
+  }
+
+  &:active {
+    background: #45c9d1;
+    color: black;
+  }
+}

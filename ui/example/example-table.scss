@@ -1,0 +1,57 @@
+table {
+  font-size: 12pt;
+  width: 40em;
+  border: 1px solid #c3edf0;
+  border-spacing: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
+  th {
+    border: 1px solid #c3edf0;
+    font-size: 16pt;
+    height: 2em;
+    color: #7dd9df;
+    background: #181d1d;
+
+    @media (max-width: 600px) {
+      font-size: 14pt;
+    }
+  }
+
+  td {
+    border: 1px solid #c3edf0;
+    min-height: 10em;
+
+    input {
+      width: stretch;
+      text-align: center;
+      font-size: 12pt;
+      height: 1.4em;
+    }
+  }
+}
+
+.table-pane {
+  .header {
+    display: flex;
+
+    @media (max-width: 600px) {
+      margin-top: 1em;
+    }
+
+    .text {
+      text-align: left;
+      flex: 5;
+      font-size: 16pt;
+
+    }
+
+    .create-new {
+      flex: 1;
+    }
+  }
+}
