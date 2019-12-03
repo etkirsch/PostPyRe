@@ -23,3 +23,7 @@ def establish_routes_for_model(model, app, database):
             database.commit_deletion(existing), 200
             return jsonify(True), 200
         return jsonify(existing.payloadize())
+
+
+def some_testable_function (some_num):
+    return list(range(some_num))
