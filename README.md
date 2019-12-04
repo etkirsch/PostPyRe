@@ -57,3 +57,6 @@ For Hot Reload functionality, additionally copy the `./public/close-lock` direct
 The following instructions are for macOS Mojave. Windows and Linux instructions will be added in the future.
 
 Install [Postgres App v2.3.2](https://postgresapp.com/downloads.html). Run through its install and get a basic server set up and running locally. Installation/Setup of PostgreSQL is outside of the scope of this document. Update your `serve.sh` file to point to the correct database via `DATABASE_URL=postgres://localhost/<your-db-name>`.
+
+## Testing Locally
+Testing locally is currently divided into webserver and UI layers. To test the UI layer, run `npm test`. To test the webserver, run `flake8 webserver` and `pytest webserver`.
