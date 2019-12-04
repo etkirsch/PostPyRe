@@ -1,11 +1,13 @@
-# Erukar.io 2.0
-This is a full stack application implementing the following technologies
+# PostPyRe
+PostPyRe is a stack which implements the following technologies
 
 * React 16.8.1
 * Python 3.7.5
 * Flask
 * Auth0
 * PostgreSQL
+
+In practice, we recommend using CI on github using the workflows provided in `.github/workflows`. Additionally, PostPyRe offers out-of-the-box Heroku support for hosting, though the option of where to host the static site is left at the discretion of the implementer.
 
 ## Local Setup
 ### Python Webserver
