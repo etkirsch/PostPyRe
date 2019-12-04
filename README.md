@@ -9,6 +9,12 @@ PostPyRe is a stack which implements the following technologies
 
 In practice, we recommend using CI on github using the workflows provided in `.github/workflows`. Additionally, PostPyRe offers out-of-the-box Heroku support for hosting, though the option of where to host the static site is left at the discretion of the implementer.
 
+## How do I use this?
+Currently, PostPyRe can serve as a baseline for your application if you fork the code branch on github. There are plans to implement a CLI for spinning up a starting point of PostPyRe without needing to fork from Github.
+
+### What is planned?
+Revision of the Example Table would be nice. I would like to make it more performant and less chaotic, but it is just an example and shouldn't really be used beyond referencing.
+
 ## Local Setup
 ### Python Webserver
 Install Python and Heroku (on Mac use homebrew to install these).
