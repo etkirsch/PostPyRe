@@ -28,6 +28,7 @@ Clone the Github repository and cd into it. Make sure that your python libs are 
 
 ```
 pip install virtualenv
+virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 heroku login
